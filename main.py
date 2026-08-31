@@ -3,6 +3,7 @@ import io
 import os
 import aiohttp
 import discord
+import datetime
 from discord.ext import commands
 from dotenv import load_dotenv
 
@@ -22,9 +23,27 @@ async def on_ready():
     print(f"Logged in as {bot.user}")
     print("Registered tree commands:", [cmd.name for cmd in bot.tree.get_commands()])
 
+    activity = discord.Activity(
+        type=discord.ActivityType.playing,
+        name="My Awesome Game",
+        details="In the main menu",
+        state="Waiting for players",
+        start=datetime.datetime.now(datetime.timezone.utc),
+        # assets: requires an ActivityAssets object
+        assets=discord.ActivityAssets(
+            large_image=" ",       # asset key or external URL
+            large_text="Main Menu",
+            small_image=" ",       # asset key or external URL
+            small_text="Player 1",
+        ),
+        # platform: one of the ActivityPlatform values
+        platform=discord.ActivityPlatform.desktop,
+    )
+
+
     await bot.change_presence(
         status=discord.Status.online,
-        activity=discord.Game(name="Stealing emojis...")
+        activity=activity
     )
 
 # -------------------------
