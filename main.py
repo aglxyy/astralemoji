@@ -22,6 +22,11 @@ async def on_ready():
     print(f"Logged in as {bot.user}")
     print("Registered tree commands:", [cmd.name for cmd in bot.tree.get_commands()])
 
+    await bot.change_presence(
+        status=discord.Status.online,
+        activity=discord.Game(name="Stealing emojis...")
+    )
+
 # -------------------------
 # Sync global slash commands
 # Works as: _syncglobal
